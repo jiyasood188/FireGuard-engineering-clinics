@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Smart Fire Detection System</title>
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<header>
+  <div>
+    <h1>Smart Fire Detection System</h1>
+    <p class="sub">Industrial prototype &middot; sensors + camera smoke analysis</p>
+  </div>
+  <div id="status" class="status normal">CONNECTING</div>
+</header>
+
+<main>
+
+  <section class="card wide">
+    <h2>Live status</h2>
+    <p id="reason" class="reason">Waiting for first reading...</p>
+    <div class="tiles">
+      <div class="tile"><span class="label">Smoke / Gas (MQ-2)</span><span id="smoke" class="value">--</span></div>
+      <div class="tile"><span class="label">Temperature (DHT11)</span><span id="temp" class="value">--</span></div>
+      <div class="tile"><span class="label">Humidity</span><span id="hum" class="value">--</span></div>
+      <div class="tile"><span class="label">Flame sensor</span><span id="flame" class="value">--</span></div>
+      <div class="tile"><span class="label">Camera smoke score</span><span id="vision" class="value">--</span></div>
+      <div class="tile"><span class="label">Buzzer</span><span id="buzzer" class="value">OFF</span></div>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Camera smoke analysis</h2>
+    <video id="cam" autoplay muted playsinline></video>
+    <canvas id="work" width="160" height="120"></canvas>
+    <div class="bar"><div id="visionBar"></div></div>
+    <div class="row">
+      <button id="camBtn">Start camera</button>
+      <span id="camMsg" class="muted">camera off</span>
+    </div>
+  </section>
+
+  <section class="card">
+    <h2>Controls</h2>
+    <div class="col">
+      <button id="demoBtn" class="danger">Simulate fire (20s)</button>
+      <button id="resetBtn">Clear database</button>
+      <label class="check"><input type="checkbox" id="sound" checked> Buzzer sound</label>
+    </div>
+    <h3>Thresholds</h3>
+    <ul class="muted small">
+      <li>Smoke &gt; 400</li>
+      <li>Temperature &gt; 50 &deg;C</li>
+      <li>Flame sensor = 1</li>
+      <li>Camera score &ge; 0.55</li>
+      <li>2 or more triggered = FIRE</li>
+    </ul>
+  </section>
+
+  <section class="card wide">
+    <h2>Smoke trend (last 30 readings)</h2>
+    <canvas id="chart" width="900" height="220"></canvas>
+  </section>
+
+  <section class="card wide">
+    <h2>Alert log</h2>
+    <table>
+      <thead><tr><th>Time</th><th>Level</th><th>Reason</th></tr></thead>
+      <tbody id="alerts"><tr><td colspan="3" class="muted">No alerts yet</td></tr></tbody>
+    </table>
+  </section>
+
+</main>
+
+<footer>CGC University &middot; Department of Computer Science &middot; Academic prototype</footer>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
